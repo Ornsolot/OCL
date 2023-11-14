@@ -1,4 +1,4 @@
-#include "osl.h"
+#include "ocl.h"
 
 static size_t getfileSize(char *path)
 {
@@ -18,25 +18,26 @@ char *readFile(char *path)
         if (buffer)
             if (read(fd, buffer, size) == -1)
                 free(buffer);
-        close(fd); 
+        close(fd);
     }
     return (buffer);
 }
 
-char *getNextLine(int fd, size_t size)
+String_t *getNextLine(int fd, size_t size)
 {
-    
-    static char *buffer = "";
-    char *tmp = NULL;    
+    static String_t *buffer = NULL;
     bool find = false;
+    char *tmp = NULL;
     
     tmp = malloc(size * sizeof(char));
     while (!find && read(fd, tmp, size) > 0) {
-        buffer = os_strcat(buffer, true, tmp, false);
-        for (size_t i = 0; !find && i < size; i++)
-            if (buffer[i] == '\n')
-                find = true;
+    //    buffer = strCat(buffer, tmp);
+     //   if (strLen(buffer) > 0)
+      //      free(buffer);
+    //    for (size_t i = 0; !find && i < size; i++)
+    //        if (buffer[i] == '\n')
+    //            find = true;
     }
     free(tmp);
-    return (NULL); 
+    return (buffer); 
 }

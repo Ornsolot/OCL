@@ -1,8 +1,14 @@
-# Binary file
-BDR		= ./
-BXT 	= .a
-BIN		= $(shell basename $(shell pwd))
+#########################################
+## PROJECT      : C LIBRARIES - OCL    ##
+## DATE         : 2023                 ##
+## ENVIRONEMENT : Unix                 ##
+## AUTHOR       : ORNSOLOT             ##
+#########################################
 
+# Binary file
+BDR		= ..
+BXT 	= .a
+BIN		= lib$(shell basename $(shell pwd))
 
 # Source file
 SDR		= ./src
@@ -11,7 +17,7 @@ SRC 	= $(shell find $(SDR) -name '*$(SXT)')
 
 ODR		= ./obj
 OXT		= .o
-OBJ 	= $(subst $(SXT),$(OXT), $(subst $(SDR),$(ODR), $(SRC)))
+OBJ 	= $(subst $(SXT),$(OXT), $(subst $(SDR),$(ODR),$(SRC)))
 
 IDR 	= $(SDR)/inc
 
@@ -19,15 +25,18 @@ IDR 	= $(SDR)/inc
 CC 		= gcc
 CCFLAGS	= -g3 -Wall -Wextra -Werror -I $(IDR)
 
-LD		= ar rcs
-LDFLAGS	= 
+LK		= ar rcs
+LKFLAGS	= 
 
-MSG:
-	@echo "[#]$(BIN)$(BXT)"
+#######################
+## MAKEFILE VARIABLE ##
+#######################
+MAKEFLAGS	+= --no-print-directory
 
-$(BIN):	MSG $(OBJ)
-	@$(LD) $(LDFLAGS) $(BDR)$@$(BXT) $(OBJ)
-	@echo " └─ [✓] $@$(BXT)"
+# Rules
+$(BIN): $(OBJ)
+	@$(LK) $(LKFLAGS) $(BDR)/$@$(BXT) $(OBJ)
+	@echo " └─ [✓] $(BDR)/$@$(BXT)"
 
 $(ODR)/%.o: $(SDR)/%.c
 	@mkdir -p $(@D)
@@ -40,8 +49,8 @@ clean:
 	@rm -Rf $(ODR)
 
 purge: clean
-	@rm -f $(NAME)
+	@rm -f $(BDR)/$(BIN)$(BXT)
 
 re:	purge all
 
-.PHONY: all clean fclean re
+.PHONY: re all clean purge

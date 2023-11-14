@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdbool.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -9,9 +8,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "list.h"
+#include "type.h"
 
 /**
  * String function header.
-*/
-char *os_strcat(char *head, bool freeHead, char *tail, bool freeTail);
+ */
+String_t *setStr(char *data);
+String_t *catStr(size_t count, ...);
+char *strCat(char *head, char *tail);

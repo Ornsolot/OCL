@@ -1,11 +1,11 @@
-#include "osl.h"
+#include "ocl.h"
 
 static link_t *setLink(char *name, void *data, link_t *prev, link_t *next)
 {
     link_t *link = malloc(sizeof(link_t));
 
     if (link) {
-        link->name = name;
+        link->name = setStr(name);
         link->data = data;
         link->prev = prev;
         link->next = next;
@@ -53,7 +53,7 @@ void *getNode(list_t *list, char *name)
     link_t *node = (list) ? list->sent->prev : NULL;
     
     if (node && name)
-        while (strcmp(name, node->name) != 0 && node->data != NULL)
+        while (strcmp(name, node->name->data) != 0 && node->data != NULL)
             node = node->next;
     return (node);
 }
