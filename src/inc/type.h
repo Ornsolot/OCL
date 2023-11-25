@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <stdio.h>
-#define MALLOCSTR(len) (malloc(sizeof(char) * len))
+#define MALLOCSTR(length) (malloc(sizeof(char) * length))
 
 /**
  * \struct  String_t
@@ -11,7 +11,7 @@
  */
 typedef struct osString_s {
     char  *data;
-    size_t len;
+    size_t length;
 } String_t;
 
 /**
@@ -31,9 +31,10 @@ typedef struct Os2DLink_s {
 } link_t;
 
 typedef struct Os2DList {
+    link_t *sentinel;
+    size_t  length;
     link_t *head;
     link_t *tail;
-    link_t *sent;
 } list_t;
 
 

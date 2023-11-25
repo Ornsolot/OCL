@@ -2,9 +2,8 @@
 
 /**
  * \brief   Get the length of a Charcater String.
- *
- * \param   string : Character String to compute.
- * \return  size_t : unsigned integer representing the length of the character string.
+ * \param   string Character String to compute.
+ * \return  size_t, unsigned integer representing the length of the character string.
  */
 static size_t strLen(char *string)
 {
@@ -18,11 +17,10 @@ static size_t strLen(char *string)
 
 /**
  * \brief   Get the a copy of a Charcater String.
- *
- * \param   string : Character String to compute.
- * \param   from : unsigned integer where to start the copy.
- * \param   to : unsigned integer where to end the copy.
- * \return  char * : The copy of the Character String.
+ * \param   string Character String to compute.
+ * \param   from unsigned integer where to start the copy.
+ * \param   to unsigned integer where to end the copy.
+ * \return  char *, The copy of the Character String.
  */
 static char *strCopy(char *string, size_t from, size_t to)
 {
@@ -36,10 +34,9 @@ static char *strCopy(char *string, size_t from, size_t to)
 
 /**
  * \brief   Concatenate two Character Strings.
- *
- * \param   head : Head of the future Character String to compute.
- * \param   tail : Tail of the future Character String to compute.
- * \return  char * : Concatenation of the two Charcater Strings.
+ * \param   head Head of the future Character String to compute.
+ * \param   tail Tail of the future Character String to compute.
+ * \return  char *, Concatenation of the two Charcater Strings.
  */
 char *strCat(char *head, char *tail)
 {
@@ -59,28 +56,26 @@ char *strCat(char *head, char *tail)
 
 /**
  * \brief   create a String_t Object.
- *
- * \param   data : Character string serving has String_t Object data.
+ * \param   data Character string serving has String_t Object data.
  * \return  Object String_t Object.
  */
 String_t *setStr(char *data)
 {
     size_t len = strLen(data);
-    String_t *str = len > 0 ? malloc(sizeof(String_t)) : NULL;
+    String_t *str = len > 0 ? malloc(sizeof(String_t)) NULL;
 
     if (str) {
         str->data = MALLOCSTR(len);
         for (size_t i = 0; i < len ; i++)
             str->data[i] = data[i];
-        str->len = len;
+        str->length = len;
     }
     return (str);
 }
 
 /**
  * \brief Remove String_t object and free it's memory.
- *
- * \param String_t *string : String_t Object to free.
+ * \param string String_t Object to free.
  */
 void unsetStr(String_t *string)
 {
@@ -93,21 +88,25 @@ void unsetStr(String_t *string)
 
 /**
  * \brief   Change the String_t Object data (Character String).
- *
- * \param   String_t str : Object to change.
- * \param   data : Character string serving has String_t Object new data.
- * \param   bool buffer : if the Character String is a buffer, if true it free new data.
+ * \param   string Object to change.
+ * \param   data Character string serving has String_t Object new data.
+ * \param   bool buffer if the Character String is a buffer, if true it free new data.
  * \return  Boolean.
  */
-bool resetStr(String_t *str, char *data, bool buffer)
+bool resetStr(String_t *string, char *data, bool buffer)
 {
-    unsetStr(str);
-    str = setStr(data);
+    unsetStr(string);
+    string = setStr(data);
     if (buffer)
         free(data);
-    return (str != NULL);
+    return (string != NULL);
 }
 
+/**
+ * \brief   Concatenate multiple String_t Object data (Character String) and free them.
+ * \param   count the number of string Object to concatenate.
+ * \return  Boolean.
+ */
 String_t *catStr(size_t count, ...)
 {
     String_t *string = NULL;
@@ -125,28 +124,18 @@ String_t *catStr(size_t count, ...)
     return (string);
 }
 
+/**
+ * \brief   Cut two Character Strings.
+ * \param   string The string to cut in half.
+ * \param   head New String_t Object representing the base of the previous string.
+ * \param   tail New String_t Object representing the end of the previous string.
+ * \return  Boolean.
+ */
 bool cutStr(String_t *string, String_t *head, String_t *tail, size_t index)
 {
     if (string && string->data) {
         resetStr(head, strCopy(string->data, 0, index), true);
-        resetStr(tail, strCopy(string->data, index + 1, string->len), true);
+        resetStr(tail, strCopy(string->data, index + 1, string->length), true);
     }
     return (head && tail);
 }
-
-/*bool os_strcut(char *str, char **head, char **tail, size_t index)
-{
-    if (*tail != NULL)
-        free(*tail);
-    if (*head != NULL)
-        free(*head);
-    *tail = malloc(sizeof(char) * (os_strlen(str) - index - 1));
-    *head = malloc(sizeof(char) * index);
-    if (*head && *tail) {
-        for (size_t i = 0; str[i + index] != '\0'; i++)
-            (*tail)[i] = str[i + index + 1];
-        for (size_t i = 0; i < index; i++)
-            (*head)[i] = str[i];
-    }
-    return (head && tail);
-}*/
