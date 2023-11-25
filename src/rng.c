@@ -1,7 +1,7 @@
 #include "ocl.h"
 
 /**
- * OBSCURE ARCANE OF BLACK WIZARDRY COMPUTER MAGIC to mix three number in one.
+ * \warning OBSCURE ARCANE OF BLACK WIZARDRY COMPUTER MAGIC to mix three number in one.
  * \brief mix 3 unsignd long integer with boolean wizardry to create a seed.
  * \warning when i was coding this only god an i know what i was doing. Now only gode know.
  * \param a a random size_t like clock().
