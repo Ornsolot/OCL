@@ -43,6 +43,12 @@ size_t getNaturalRNG(size_t min, size_t max)
     return (rand() % (max - min) + min);
 }
 
+/**
+ * \brief Give a random double.
+ * \param min the minimum value the number can take.
+ * \param max the maximum value the number can take.
+ * \return double, random unsigned integer.
+ */
 double getFloatRNG(double min, double max)
 {
     return ((rand() / RAND_MAX) * (max - min) + min);
