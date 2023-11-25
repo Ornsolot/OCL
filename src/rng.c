@@ -1,13 +1,13 @@
 #include "ocl.h"
 
 /**
- * \warning OBSCURE ARCANE OF BLACK WIZARDRY COMPUTER MAGIC to mix three number in one.
  * \brief mix 3 unsignd long integer with boolean wizardry to create a seed.
- * \warning when i was coding this only god an i know what i was doing. Now only gode know.
  * \param a a random size_t like clock().
  * \param b a random size_t like time().
  * \param c a random size_t like getpid().
  * \return size_t, the new seed.
+ * \warning OBSCURE ARCANE OF BLACK WIZARDRY COMPUTER MAGIC to mix three number in one.
+ * \warning when i was coding this only god an i know what i was doing. Now only gode know.
  */
 static size_t mix(size_t a, size_t b, size_t c)
 {
@@ -50,9 +50,9 @@ double getFloatRNG(double min, double max)
 
 /**
  * \brief   Arrange the N elements of ARRAY in random order.
- * \warning Only effective if N is much smaller than RAND_MAX (32767) !
  * \param   array the array to shuffle.
  * \param   length the array size.
+ * \warning Only effective if N is much smaller than RAND_MAX (32767) !
  */
 void shuffle(void **array, size_t length)
 {
