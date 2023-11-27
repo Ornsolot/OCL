@@ -80,7 +80,7 @@ bool setTail(list_t *list, char *name, void *data)
  */
 link_t *getNodeFromeName(list_t *list, char *name)
 {
-    link_t *node = (list) ? list->sentinel->prev  NULL;
+    link_t *node = (list) ? list->sentinel->prev : NULL;
     
     if (node && name)
         while (strcmp(name, node->name->data) != 0 && node->data != NULL)
@@ -95,7 +95,7 @@ link_t *getNodeFromeName(list_t *list, char *name)
  */
 link_t *rmNode(list_t *list, char *name)
 {
-    link_t *node = (list) ? list->sentinel->prev  NULL;
+    link_t *node = (list) ? list->sentinel->prev : NULL;
     
     if (node && name) {
         while (strcmp(name, node->name->data) != 0 && node->data != NULL)
@@ -113,7 +113,7 @@ link_t *rmNode(list_t *list, char *name)
  */
 void *unsetList(list_t *list)
 {
-    link_t *node = (list) ? list->sentinel->next  NULL;
+    link_t *node = (list) ? list->sentinel->next : NULL;
     
     if (node) {
         while (node->data) {

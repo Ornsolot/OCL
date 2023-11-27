@@ -17,12 +17,13 @@ static size_t getfileSize(char *path)
  * \param   char *path : full path of a file (with name ans extension).
  * \return  String_t * : the contant of the file.
  */
-char *readFile(char *path)
+String_t *readFile(char *path)
 {
     size_t size = getfileSize(path);
     char *buffer = (size > 0) ? malloc(size * sizeof(char)) : NULL;
-    String_t string = NULL;
     int fd = open(path, O_RDONLY);
+    String_t *string = NULL;
+    
     
     if (fd != -1) {
         if (buffer) {
@@ -32,7 +33,7 @@ char *readFile(char *path)
         }
         close(fd);
     }
-    return (buffer);
+    return (string);
 }
 
 /**

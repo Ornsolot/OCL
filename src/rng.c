@@ -40,7 +40,7 @@ void setRNG()
  */
 size_t getNaturalRNG(size_t min, size_t max)
 {
-    return (rand() % (max - min) + min);
+    return (min + rand() % (max+1 - min));
 }
 
 /**
@@ -51,7 +51,7 @@ size_t getNaturalRNG(size_t min, size_t max)
  */
 double getFloatRNG(double min, double max)
 {
-    return ((rand() / RAND_MAX) * (max - min) + min);
+    return ((max - min) * (double)(rand() / RAND_MAX) + min);
 }
 
 /**

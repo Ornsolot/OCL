@@ -62,7 +62,7 @@ char *strCat(char *head, char *tail)
 String_t *setStr(char *data)
 {
     size_t len = strLen(data);
-    String_t *str = len > 0 ? malloc(sizeof(String_t)) NULL;
+    String_t *str = len > 0 ? malloc(sizeof(String_t)) : NULL;
 
     if (str) {
         str->data = MALLOCSTR(len);
