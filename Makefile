@@ -5,52 +5,78 @@
 ## AUTHOR       : ORNSOLOT             ##
 #########################################
 
-# Binary file
-BDR		= ..
-BXT 	= .a
-BIN		= lib$(shell basename $(shell pwd))
+##################
+## Project Tree ##
+##################
 
-# Source file
-SDR		= ./src
+## Binary file(s)
+#################
+BDR	= ..
+BXT = .a
+BIN	= lib$(shell basename $(shell pwd))
+
+# Source file(s)
+################
+SDR		= src
 SXT		= .c
-SRC 	= $(shell find $(SDR) -name '*$(SXT)')
+SRC 	= $(shell find $(SDR) -name '*$(SXT)' ! -path '*/lib/*')
 
-ODR		= ./obj
+ODR		= obj
 OXT		= .o
 OBJ 	= $(subst $(SXT),$(OXT), $(subst $(SDR),$(ODR),$(SRC)))
 
+## Dependencies file(s)
+#######################
 IDR 	= $(SDR)/inc
 
-# Compiler
+## Compiler
 CC 		= gcc
 CCFLAGS	= -g3 -Wall -Wextra -Werror -I $(IDR)
 
-LK		= ar rcs
-LKFLAGS	= 
+## Linker
+LK		= ar
+LKFLAGS	= rcso
 
 #######################
 ## MAKEFILE VARIABLE ##
 #######################
-MAKEFLAGS	+= --no-print-directory
+MAKEFLAGS	= --no-print-directory
+LEFT		= $(LIFELINE)" │ "
+NODE		= $(LIFELINE)" ├── [✓]"
+TAIL		= $(LIFELINE)" └── [✓]"
 
-# Rules
-$(BIN): $(OBJ)
-	@$(LK) $(LKFLAGS) $(BDR)/$@$(BXT) $(OBJ)
-	@echo " └─ [✓] $(BDR)/$@$(BXT)"
+####################
+## Makefile Rules ##
+####################
+.PHONY: re all clean $(BIN)
 
-$(ODR)/%.o: $(SDR)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CCFLAGS) -o $@ -c $<
-	@echo " ├─ [✓] $<"
+## General rules
+################
+re:	clean all
 
 all: $(BIN)
 
 clean:
 	@rm -Rf $(ODR)
-
-purge: clean
 	@rm -f $(BDR)/$(BIN)$(BXT)
 
-re:	purge all
+vanity:
+	@echo "$(LEFT)"
+	@echo "$(LEFT)\t ██████╗  ██████╗██╗"
+	@echo "$(LEFT)\t██╔═══██╗██╔════╝██║"
+	@echo "$(LEFT)\t██║   ██║██║     ██║"
+	@echo "$(LEFT)\t██║   ██║██║     ██║"
+	@echo "$(LEFT)\t╚██████╔╝╚██████╗███████╗"
+	@echo "$(LEFT)\t ╚═════╝  ╚═════╝╚══════╝"
+	@echo "$(LEFT)"
 
-.PHONY: re all clean purge
+## procedural Rules
+###################
+$(ODR)/%.o: $(SDR)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CCFLAGS) -o $@ -c $<
+	@echo "$(NODE) $<"
+
+$(BIN): vanity $(OBJ)
+	@$(LK) $(LKFLAGS) $(BDR)/$@$(BXT) $(OBJ)
+	@echo "$(TAIL) $(BDR)/$@$(BXT)"
